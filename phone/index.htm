@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <style type="text/css">
+      #screen {
+        border: 0px;
+        z-index: 2;
+      }
+      
+      #phone-frame {
+        z-index: 1;
+      }
+      
+      #screen, #phone-frame {
+        position: absolute;
+      }
+      
+      #container {
+        position: relative;
+      }
+    </style>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+    </script>
+
+    <script>
+      
+      var ratio = 1184/774;
+      var frameImageWidth =  {'phone' :  774, 'total': 1400}
+      var frameImageHeight = {'phone' : 1184, 'total': 2000}
+      var screenOnImage = {'top': 358, 'left': 310}
+      
+      var ctx;
+      var browserWidth, browserHeight;
+      var screenWidth, screenHeight;
+      
+      
+      function init() {
+        ctx = $('#screen')[0].getContext('2d');
+        browserWidth = $(window).width();
+        browserHeight = $(window).height();
+        frameHeight = browserHeight;
+        frameWidth = Math.floor(1/ratio * frameHeight);
+        screenWidth  = frameImageWidth.phone  / frameImageWidth.total  * frameWidth;
+        screenHeight = frameImageHeight.phone / frameImageHeight.total * frameHeight;
+        $('#screen').width(screenWidth).height(screenHeight);
+        $('#phone-frame').width(frameWidth).height(frameHeight);
+        $('#screen').css('left', screenOnImage.left / frameImageWidth.total * frameWidth);
+        $('#screen').css('top', screenOnImage.top / frameImageHeight.total * frameHeight);
+        
+        // background
+        ctx.fillStyle = '#FF0000';
+        ctx.fillRect(0, 0, screenWidth, screenHeight);
+      }
+      
+      function chess(lines) {
+        // NOT WORKING!!!!!!!!!!!!!!
+        var h = screenHeight / lines;
+        var w = h;
+        console.log('size = ' + w);
+        var colours = 'rgba(0, 255, 0, 1)';
+        ctx.fillStyle = colours;
+         for (x = 0; x < screenWidth; x += 2 * w) {
+          for (y = 0; y < screenHeight; y += 2 * h) {
+            ctx.fillRect(x, y, w, h);
+          }
+        }
+      }
+      
+      $(document).ready(init);
+    
+    </script>
+  </head>
+
+  <body>
+    
+    <div id="container" style="position: relative">
+      <canvas id="screen" width="1" height="1">
+        Your browser does not support HTML5 canvas.
+      </canvas>
+      
+      <img id="phone-frame" src="LG_Nexus_4.png" width="1" height="1" />
+    </div>
+    
+    <!-- Source: https://dribbble.com/shots/1078056-Lg-Nexus-4-Mockup -->
+  </body>
+  
+</html>
