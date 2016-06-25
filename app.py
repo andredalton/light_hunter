@@ -49,8 +49,6 @@ def mask_feed():
     return Response(cam.get_mask())
 
 
-
-
 if __name__ == '__main__':
     clock = Clock(25)
     cam = Camera(clock)

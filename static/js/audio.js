@@ -1,36 +1,52 @@
 /**
  * Created by avale on 25/06/16.
  */
-var audio1 = new Audio('/static/sound/sound1.mp3');
-audio1.volume = 0;
-audio1.play();
+var sounds = {}
+var colors = {}
 
-var audio2 = new Audio('/static/sound/sound2.mp3');
-audio2.volume = 0;
-audio2.play();
+sounds['g'] = new Audio('/static/sound/sound1.mp3');
+sounds['g'].volume = 0;
+sounds['g'].loop=true;
+sounds['g'].play();
 
-var audio3 = new Audio('/static/sound/sound3.mp3');
-audio3.volume = 0;
-audio3.play();
+sounds['y'] = new Audio('/static/sound/sound2.mp3');
+sounds['y'].volume = 0;
+sounds['y'].loop=true;
+sounds['y'].play();
+
+sounds['r'] = new Audio('/static/sound/sound3.mp3');
+sounds['r'].volume = 0;
+sounds['r'].loop=true;
+sounds['r'].play();
+
+colors['g'] = 'green';
+colors['y'] = 'yellow';
+colors['r'] = 'red';
 
 if (frame_rate === undefined) {
     var frame_rate = 25;
 }
 
+var status;
 
 function get_status() {
     $.get('mask', function(data){
-        if (status === undefined) {
-            var status = data;
+        if (!status) {
+            status = data;
         }
-        console.log(status + ' >> ' + data);
         if (data != status) {
-            alert(status + ' >> ' + data);
+            if (status != 't') {
+                sounds[status].volume = 0;
+            }
+            if (data != 't') {
+                sounds[data].volume = 1;
+                $('.mask').css({'background-color': colors[data], 'opacity': 0.3});
+            }
+            else {
+                $('.mask').css({'opacity': 0});
+            }
             status = data
         }
-        //var the_page_loaded = $(data);
-        //document.title = $('title', the_page_loaded).text();
-        //$('#where').html($('#what', the_page_loaded)); //do the load as you wanted
     });
 }
 
