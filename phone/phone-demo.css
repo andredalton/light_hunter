@@ -1,0 +1,22 @@
+#demo {
+    float: right;
+    width: 300px;
+}
+
+#demo label {
+    display: inline-block;
+    text-align: right;
+    width: 80px;
+}
+
+#demo .opt {
+    padding: 3px;
+}
+
+fieldset {
+    margin-top: 4px;
+}
+
+#chess-rows {
+    width: 80px;
+}

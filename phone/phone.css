@@ -1,0 +1,17 @@
+#screen {
+    border: 0px;
+    z-index: 2;
+}
+
+#phone-frame {
+    z-index: 1;
+}
+  
+#screen, #phone-frame {
+    position: absolute;
+}
+  
+#container {
+    position: relative;
+}
+

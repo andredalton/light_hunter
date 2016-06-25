@@ -2,140 +2,100 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <title>Phone</title>
     
-    <style type="text/css">
-      #screen {
-        border: 0px;
-        z-index: 2;
-      }
-      
-      #phone-frame {
-        z-index: 1;
-      }
-      
-      #screen, #phone-frame {
-        position: absolute;
-      }
-      
-      #container {
-        position: relative;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="phone.css" />
+    <link rel="stylesheet" type="text/css" href="phone-demo.css" />
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
     </script>
 
-    <script>
-      
-      // height/width of screen (this does not include the buttons)
-      var ratio = 1184/774;
-      
-      // frame (image)
-      // the image is 1400x2000 and its screen is 1188x774
-      // the top left corner of the phone on the image is the point (358, 314)
-      var frameImageWidth =  {'phone' :  774, 'total': 1400}
-      var frameImageHeight = {'phone' : 1188, 'total': 2000}
-      var screenOnImage = {'top': 358, 'left': 314}
-      
-      var ctx;
-      var browserWidth, browserHeight;
-      var screenWidth, screenHeight;
-      
-      
-      function init() {
-        
-        ctx = $('#screen')[0].getContext('2d');
-        
-        // browser
-        browserWidth = $(window).width();
-        browserHeight = $(window).height();
-        
-        // frame (image)
-        frameHeight = browserHeight;
-        frameWidth = Math.floor(1/ratio * frameHeight);
-        
-        // screen (canvas)
-        screenWidth  = frameImageWidth.phone  / frameImageWidth.total  * frameWidth;
-        screenWidth = Math.ceil(screenWidth);
-        screenHeight = frameImageHeight.phone / frameImageHeight.total * frameHeight;
-        screenHeight = Math.ceil(screenHeight);
-        
-        $('#screen').width(screenWidth).height(screenHeight);
-        $('#phone-frame').width(frameWidth).height(frameHeight);
-        $('#screen')[0].setAttribute('width', screenWidth);
-        $('#screen')[0].setAttribute('height', screenHeight);
-        var left = Math.floor(screenOnImage.left / frameImageWidth.total * frameWidth);
-        var top = Math.floor(screenOnImage.top / frameImageHeight.total * frameHeight);
-        $('#screen').css('left', left).css('top', top);
-        clear();
-      }
-      
-      function clear() {
-        // background
-        ctx.fillStyle = 'rgba(255, 255, 255, 1)';
-        ctx.beginPath();
-        ctx.fillRect(0, 0, screenWidth, screenHeight);
-      }
-      
-      function chess(red, green, blue, alpha, rows) {
-        var h = screenHeight / rows;
-        var w = h;
-        var columns = Math.ceil(screenWidth / w);
-        ctx.fillStyle = 'rgba(' + [red, green, blue, alpha].join() + ')';
-        for (var i = 0; i < columns; i++) {
-          for (var j = +!(i % 2); j < rows; j += 2)
-            ctx.beginPath();
-            ctx.fillRect(i * w, j * h, w, h);
-        }
-      }
-      
-      function lines(red, green, blue, alpha, angle, number, lineWidth) {
-        if (angle < -90 || angle > 90)
-          return;
-        var useVerticalBorder = (Math.abs(angle) <= 45);
-        var tangent = Math.tan(Math.PI / 180 * angle);
-        var horStep = screenWidth  / number;
-        var verStep = screenHeight / number;
-        
-        ctx.lineWidth = lineWidth;
-        for (var i = 0; i <= number; i++) { // n + 1
-          x0 = i * horStep;
-          y0 = (angle >= 0) ? (i * verStep) : (screenHeight - i * verStep);
-          if (useVerticalBorder) {
-            x1 = screenWidth;
-            y1 = y0 + (screenWidth - x0) * (-tangent);
-            x2 = 0;
-            y2 = y0 - x0 * (-tangent);
-          } else {
-            x1 = x0 - (screenHeight - y0) / tangent;
-            y1 = screenHeight;
-            x2 = x0 + y0 / tangent;
-            y2 = 0;
-          }
-          ctx.beginPath();
-          ctx.moveTo(x1, y1);
-          ctx.lineTo(x2, y2);
-          ctx.strokeStyle = 'rgba(' + [red, green, blue, alpha].join() + ')';
-          ctx.stroke();
-        }
-      }
-      
-      $(document).ready(init);
-    
+    <script src="phone.js">
     </script>
+    <script src="phone-demo.js">
+    </script>
+    
   </head>
 
   <body>
     
-    <div id="container" style="position: relative">
+    <div id="container" style="position: relative; float: left;">
       <canvas id="screen" width="1" height="1">
         Your browser does not support HTML5 canvas.
       </canvas>
       
-      <img id="phone-frame" src="LG_Nexus_4.png" width="1" height="1" />
+      <img id="phone-frame" src="LG_Nexus_4.png" width="1" height="1" alt=""/>
+      <!-- Source: https://dribbble.com/shots/1078056-Lg-Nexus-4-Mockup -->
     </div>
     
-    <!-- Source: https://dribbble.com/shots/1078056-Lg-Nexus-4-Mockup -->
+    
+    
+    <div id="demo">
+      <fieldset>
+        <legend>Clear</legend>
+        <button onclick="demoClear();">Clear all</button>
+      </fieldset>
+      
+      <fieldset>
+        <legend>Chess</legend>
+        
+        <div class="opt">
+          <label for="chess-colour">Colour</label>
+          <input id="chess-colour" type="color" value="#FF0000" />
+        </div>
+        
+        <div class="opt">
+          <label for="chess-opacity">Opacity</label>
+          <input id="chess-opacity" type="range" value="0.3" min="0" max="1"
+            step="0.01"/>
+        </div>
+        
+        <div class="opt">
+          <label for="chess-rows">Rows</label>
+          <input id="chess-rows" type="number" value="10" min="2" max="20"/>
+        </div>
+        
+        <div>
+          <button onclick="demoChess();">Draw</button>
+        </div>
+      </fieldset>
+      
+      <fieldset>
+        <legend>Lines</legend>
+        
+        <div class="opt">
+          <label for="line-colour">Colour</label>
+          <input id="line-colour" type="color" value="#FF0000" />
+        </div>
+        
+        <div class="opt">
+          <label for="line-opacity">Opacity</label>
+          <input id="line-opacity" type="range" value="0.3" min="0" max="1"
+            step="0.01"/>
+        </div>
+        
+        <div class="opt">
+          <label for="line-angle">Angle</label>
+          <input id="line-angle" type="number" value="0" min="-90" max="90"/> °
+        </div>
+        
+        <div class="opt">
+          <label for="line-number">Number</label>
+          <input id="line-number" type="number" value="20" min="2" max="60"/>
+        </div>
+        
+        <div class="opt">
+          <label for="line-width">Line width</label>
+          <input id="line-width" type="range" value="5" min="1" max="15"/>
+        </div>
+        
+        <div>
+          <button onclick="demoLines();">Draw</button>
+        </div>
+      </fieldset>
+      
+    </div>
+    
   </body>
   
 </html>
