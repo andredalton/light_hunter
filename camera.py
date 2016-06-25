@@ -38,7 +38,6 @@ class Camera(object):
         return self.frames[self.clock.get_tic()]
 
     def get_mask(self):
-        print self.clock.get_tic()
         return self.masks[self.clock.get_tic()]
 
 if __name__ == '__main__':

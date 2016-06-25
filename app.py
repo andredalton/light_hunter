@@ -17,6 +17,11 @@ def phone():
     return render_template('phone.html')
 
 
+@app.route('/teste')
+def teste():
+    return render_template('teste.html')
+
+
 @app.route('/static/<path:path>')
 def send_static(path):
     return send_from_directory('static', path)
@@ -34,7 +39,7 @@ def gen():
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(cam),
+    return Response(gen(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
