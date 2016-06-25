@@ -14,7 +14,7 @@ Como rodar
    sudo pip install virtualenv
 
 2. Crie seu virtualenv:
-   virtualenv NomeDoAmbiente
+   virtualenv --python=python2.7 NomeDoAmbiente
    E entre nesse ambiente virtual:
    source ./NomeDoAmbiente/bin/activate
 
