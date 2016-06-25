@@ -1,7 +1,22 @@
 var repeat = null;
+var status = 't';
 
 function received_data(data) {
+  
+  if (status === data)
+    return; // nothing to do
+  
+  // sound
+  if (status != 't') {
+    console.log(status);
+    mute(status);
+  }
+  if (data != 't')
+    unmute(data);
+  
+  // screen
   clear();
+  status = data;
   switch (data) {
     case 'r':
       $('#status-txt').html('RED')
@@ -26,6 +41,7 @@ function received_data(data) {
 
 function failed() {
   clear();
+  status = 't';
   $('#status-txt').html('<span style="color:red">ERROR</span>');
 }
 

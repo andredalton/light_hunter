@@ -4,50 +4,26 @@
 var sounds = {}
 var colors = {}
 
-sounds['g'] = new Audio('/static/sound/sound1.mp3');
-sounds['g'].volume = 0;
-sounds['g'].loop=true;
-sounds['g'].play();
+var audio_files = {'r' : 'sound3', 'y': 'sound2', 'g': 'sound1', 't': null}
 
-sounds['y'] = new Audio('/static/sound/sound2.mp3');
-sounds['y'].volume = 0;
-sounds['y'].loop=true;
-sounds['y'].play();
-
-sounds['r'] = new Audio('/static/sound/sound3.mp3');
-sounds['r'].volume = 0;
-sounds['r'].loop=true;
-sounds['r'].play();
-
-colors['g'] = 'green';
-colors['y'] = 'yellow';
-colors['r'] = 'red';
-
-if (frame_rate === undefined) {
-    var frame_rate = 25;
+function create_audio_files() {
+  for (key in audio_files) {
+    if (audio_files[key] !== null) {
+      var a = new Audio('/static/sound/' + audio_files[key] + '.mp3')
+      a.volume = 0;
+      a.loop = true;
+      a.play();
+      sounds[audio_files[key]] = a;
+    }
+  }
 }
 
-var status;
-
-function get_status() {
-    $.get('mask', function(data){
-        if (!status) {
-            status = data;
-        }
-        if (data != status) {
-            if (status != 't') {
-                sounds[status].volume = 0;
-            }
-            if (data != 't') {
-                sounds[data].volume = 1;
-                $('.mask').css({'background-color': colors[data], 'opacity': 0.3});
-            }
-            else {
-                $('.mask').css({'opacity': 0});
-            }
-            status = data
-        }
-    });
+function mute(key) {
+  sounds[audio_files[key]].volume = 0;
 }
 
-setInterval(get_status, 1000/frame_rate);
+function unmute(key) {
+  sounds[audio_files[key]].volume = 1;
+}
+
+$(document).ready(create_audio_files);
