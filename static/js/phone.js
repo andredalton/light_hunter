@@ -10,6 +10,8 @@ var homeButtonOnImage = {'top': 1548, 'left': 596, 'width': 220, 'height': 100}
 // height/width of screen (this does not include the buttons)
 var ratio = screenOnImage.height / screenOnImage.width;
 
+var statusBarFraction = 0.045;
+
 var ctx;
 var browserWidth, browserHeight;
 var screenWidth, screenHeight;
@@ -76,44 +78,47 @@ function clear() {
   // background
   ctx.drawImage(image, 0, 0, screenWidth, screenHeight);
   // clock
-  updateClock();
+  updateHomeScreenClock();
 }
 
-function updateClock() {
-  var d = new Date();
-  var hours = d.getHours();
-  var minutes = d.getMinutes();
-  if (hours < 10)
-    hours = '0' + hours;
-  if (minutes < 10)
-    minutes = '0' + minutes;
-  var timeString = hours + ':' + minutes; 
-  // draw on status bar
+function drawStatusBar() {
+  ctx.drawImage(image,
+                0, 0, image.width, statusBarFraction * image.height,
+                0, 0, screenWidth, statusBarFraction * screenHeight);
+  updateStatusBarClock();
+}
+
+function updateStatusBarClock() {
   var top = 0;
   var left = 0.8 * screenWidth;
   var width = screenWidth - left;
-  var height = 0.045 * screenHeight;
-  drawClock(left, top, width, height, '#02868B', '#FFFFFF', timeString);
-  // draw on home screen
-  top = 0.07 * screenHeight;
-  left = 0;
-  width = 0.43 * screenWidth;
-  height = 0.13 * screenHeight;
-  drawClock(left, top, width, height, '#5C7794', '#FFFFFF', timeString);
+  var height = statusBarFraction * screenHeight;
+  drawClock(left, top, width, height, '#02868B', '#FFFFFF', false);
+}
+
+function updateHomeScreenClock() {  
+  var top = 0.07 * screenHeight;
+  var left = 0.1 * screenWidth;
+  var width = 0.8 * screenWidth;
+  var height = 0.13 * screenHeight;
+  drawClock(left, top, width, height, '#5C7794', '#FFFFFF', true);
 }
 
 function chess(red, green, blue, alpha, rows) {
   // red, green and blue in [0, 255]
   // alpha in [0, 1]
+  var minY = statusBarFraction * screenHeight;
+  var height =  screenHeight - minY;
   
-  var h = screenHeight / rows;
+  var h = height / rows;
   var w = h;
   var columns = Math.ceil(screenWidth / w);
   ctx.fillStyle = 'rgba(' + [red, green, blue, alpha].join() + ')';
   for (var i = 0; i < columns; i++) {
     for (var j = +!(i % 2); j < rows; j += 2)
-      ctx.fillRect(i * w, j * h, w, h);
+      ctx.fillRect(i * w, minY + j * h, w, h);
   }
+  drawStatusBar();
 }
 
 function lines(red, green, blue, alpha, angle, number, lineWidth) {
@@ -149,6 +154,7 @@ function lines(red, green, blue, alpha, angle, number, lineWidth) {
     ctx.strokeStyle = 'rgba(' + [red, green, blue, alpha].join() + ')';
     ctx.stroke();
   }
+  drawStatusBar()
 }
 
 $(document).ready(init);
