@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 from flask import Flask, render_template, Response
 
-# emulated camera
 from camera import Camera
 from clock import Clock
 
@@ -10,38 +9,39 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    """Video streaming home page."""
     return render_template('index.html')
 
 
-def gen(camera):
+@app.route('/phone')
+def phone():
+    return render_template('phone.html')
+
+
+@app.route('/static/<path:path>')
+def send_static(path):
+    return send_from_directory('static', path)
+
+
+def gen():
     """Video streaming generator function."""
+    global cam
     while True:
-        frame = camera.get_frame()
+        frame = cam.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-def gen2(camera):
-    """Video streaming generator function."""
-    while True:
-        frame = camera.get_mask()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/png\r\n\r\n' + frame + b'\r\n')
-
 
 
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    global cam
     return Response(gen(cam),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/mask_feed')
+
+@app.route('/mask')
 def mask_feed():
     global cam
-    return Response(gen2(cam),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(cam.get_mask())
 
 
 

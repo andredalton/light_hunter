@@ -1,10 +1,9 @@
 <html>
-  <head>
-    <title>Light Hunter - Demo</title>
-  </head>
-  <body>
-    <h1>Vídeo e máscara.</h1>
-    <img src="{{ url_for('video_feed') }}" width="800" height="600" />
-    <img src="{{ url_for('mask_feed') }}" width="200" height="600" />
-  </body>
+<head>
+    <title>Light Hunter - Janela</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/streaming.css" />
+</head>
+<body>
+<img class="" src="{{ url_for('video_feed') }}"/>
+</body>
 </html>

@@ -44,7 +44,7 @@ function init() {
 
   // load screen image
   image = new Image();
-  image.src = 'screenshot-1.jpg';
+  image.src = '/static/img/screenshot-1.jpg';
   image.onload = function() { clear(); }
   
 
