@@ -1,11 +1,16 @@
 #!/usr/bin/env python
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request
 
 from camera import Camera
 from clock import Clock
 
 app = Flask(__name__)
 
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
 
 @app.route('/')
 def index():
@@ -48,9 +53,16 @@ def mask_feed():
     global cam
     return Response(cam.get_mask())
 
+@app.route('/shutdown', methods=['GET', 'POST'])
+def shutdown():
+    shutdown_server()
+    return 'Server shutting down...'
+
 
 if __name__ == '__main__':
     clock = Clock(25)
     cam = Camera(clock)
     app.run(host='0.0.0.0', debug=True, threaded=True)
     clock.exit()
+
+    
