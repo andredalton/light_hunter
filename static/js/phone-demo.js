@@ -21,6 +21,5 @@ function demoLines() {
   var angle = $('#line-angle').val();
   var number = $('#line-number').val();
   var lineWidth = $('#line-width').val();
-  console.log(rgb[0], rgb[1], rgb[2], alpha, angle, number, lineWidth);
   lines(rgb[0], rgb[1], rgb[2], alpha, angle, number, lineWidth);
 }

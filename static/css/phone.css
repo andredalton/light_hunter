@@ -1,16 +1,28 @@
+#screen, #back-button, #home-button {
+    z-index: 2;
+}
+
+#clock {
+    z-index: 3;
+}
+
 #screen {
     border: 0px;
-    z-index: 2;
 }
 
 #phone-frame {
     z-index: 1;
-}
-  
-#screen, #phone-frame {
     position: absolute;
 }
-  
+
+canvas {
+    position: absolute;
+}
+
+#clock {
+    border: 1px solid red;
+}
+
 #container {
     position: relative;
 }

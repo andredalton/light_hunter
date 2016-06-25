@@ -17,6 +17,8 @@
     </script>
     <script src="/static/js/phone-io.js">
     </script>
+    <script src="/static/js/phone-ui.js">
+    </script>
     <script src="/static/js/audio.js">
     </script>
     
@@ -25,7 +27,16 @@
   <body>
     
     <div id="container" style="position: relative; float: left;">
+      
       <canvas id="screen" width="1" height="1">
+        Your browser does not support HTML5 canvas.
+      </canvas>
+      
+      <canvas id="back-button" width="1" height="1">
+        Your browser does not support HTML5 canvas.
+      </canvas>
+      
+      <canvas id="home-button" width="1" height="1">
         Your browser does not support HTML5 canvas.
       </canvas>
       
@@ -101,7 +112,7 @@
       
     </div>
     
-    <div id="status-txt">teste</div>
+    <div id="status-txt"></div>
   </body>
   
 </html>

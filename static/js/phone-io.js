@@ -3,16 +3,13 @@ var status = 't';
 
 function received_data(data) {
   
-  if (status === data)
-    return; // nothing to do
-  
-  // sound
-  if (status != 't') {
-    console.log(status);
-    mute(status);
+  if (status != data) {
+    // sound
+    if (status != 't')
+      mute(status);
+    if (data != 't')
+      unmute(data);
   }
-  if (data != 't')
-    unmute(data);
   
   // screen
   clear();
@@ -41,6 +38,8 @@ function received_data(data) {
 
 function failed() {
   clear();
+  if (status != 't')
+    mute(status);
   status = 't';
   $('#status-txt').html('<span style="color:red">ERROR</span>');
 }
