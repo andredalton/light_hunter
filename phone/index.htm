@@ -73,6 +73,7 @@
       function clear() {
         // background
         ctx.fillStyle = 'rgba(255, 255, 255, 1)';
+        ctx.beginPath();
         ctx.fillRect(0, 0, screenWidth, screenHeight);
       }
       
@@ -83,12 +84,12 @@
         ctx.fillStyle = 'rgba(' + [red, green, blue, alpha].join() + ')';
         for (var i = 0; i < columns; i++) {
           for (var j = +!(i % 2); j < rows; j += 2)
-           ctx.fillRect(i * w, j * h, w, h);
+            ctx.beginPath();
+            ctx.fillRect(i * w, j * h, w, h);
         }
       }
       
       function lines(red, green, blue, alpha, angle, number, lineWidth) {
-        // doesn't work yet
         if (angle < -90 || angle > 90)
           return;
         var useVerticalBorder = (Math.abs(angle) <= 45);
@@ -111,6 +112,7 @@
             x2 = x0 + y0 / tangent;
             y2 = 0;
           }
+          ctx.beginPath();
           ctx.moveTo(x1, y1);
           ctx.lineTo(x2, y2);
           ctx.strokeStyle = 'rgba(' + [red, green, blue, alpha].join() + ')';
