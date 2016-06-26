@@ -1,3 +1,5 @@
+"use strict";
+
 function demoClear() {
   clear();
 }

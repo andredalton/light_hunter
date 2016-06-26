@@ -1,6 +1,5 @@
-/**
- * Created by avale on 25/06/16.
- */
+"use strict";
+
 var sounds = {}
 var colors = {}
 
@@ -8,10 +7,10 @@ var audio_files = {'r' : 'sound3', 'y': 'sound2', 'g': 'sound1', 't': null}
 var default_sounds = {}
 
 function create_audio_files() {
-  for (key in audio_files) {
+  for (var key in audio_files) {
     if (audio_files[key] !== null) {
       var a = new Audio('/static/sound/' + audio_files[key] + '.mp3')
-      default_sounds[key] = a;
+      sounds[key] = default_sounds[key] = a;
     }
   }
 }
@@ -32,8 +31,19 @@ function unmute(key) {
 }
 
 function muteAll() {
-  for (var s of sounds)
-    s.pause();
+  for (var s in sounds)
+    sounds[s].pause();
+}
+
+function playOnce(key) {
+  volume = $('#volume').val();
+  key = key[0];
+  var s = sounds[key];
+  if (s) {
+    s.loop = false;
+    s.volume = volume;
+    s.play();
+  }
 }
 
 $(document).ready(create_audio_files);

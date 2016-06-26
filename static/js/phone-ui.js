@@ -1,3 +1,5 @@
+"use strict";
+
 var mouseIsDown = false;
 var isDraggingNotif = false;
 var visibleNotifHeight = 0;
@@ -19,6 +21,11 @@ function initUI() {
     $('#tab-container').tabs(this.checked ? 'enable' : 'disable', '#tab-mask');
     showOrHideStartButton();
   });
+  
+  $('#play-red'   ).click(function() { playOnce('red'   ); });
+  $('#play-yellow').click(function() { playOnce('yellow'); });
+  $('#play-green' ).click(function() { playOnce('green' ); });
+  
   
 }
 

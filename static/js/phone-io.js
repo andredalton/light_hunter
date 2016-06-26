@@ -1,3 +1,5 @@
+"use strict";
+
 var connectionTimer = null;
 var transparentTimer = null;
 var status = 't';
@@ -5,8 +7,6 @@ var lhEnabled = false;
 var soundEnabled = false;
 var maskEnabled = false;
 var volume = 1;
-
-
 
 var masks = {
   't': null,
@@ -33,9 +33,9 @@ function received_data(data) {
   if (maskEnabled) {
     // screen
     if (masks[data]) {
-      func = masks[data][0];
-      arguments = masks[data][1];
-      func.apply(null, arguments);
+      var func = masks[data][0];
+      var args = masks[data][1];
+      func.apply(null, args);
     }
   }
 
@@ -71,35 +71,35 @@ function start_lh(interval) {
   maskEnabled  = $('#chk-mask' ).is(':checked');
   
   if (soundEnabled) {
-    
+    volume = $('#volume').val();
   }
   
   if (maskEnabled) {
     
-    opacity = $('#opacity').val();
+    var opacity = $('#opacity').val();
     
     for (var colour of ['red', 'yellow', 'green']) {
       
       
       if ($('#chk-mask-' + colour).is(':checked')) {
-        var param = hexToRGB($('#colour-' + colour).val());
-        param.push(opacity);
+        var args = hexToRGB($('#colour-' + colour).val());
+        args.push(opacity);
         var func;
         switch($('#mask-' + colour).val()) {
           case 'chess':
             func = chess;
-            param.push(15);
+            args.push(15);
             break;
           case 'vertical':
             func = lines;
-            param.push(90, 15, 10);
+            args.push(90, 15, 10);
             break;
           case 'oblique':
             func = lines;
-            param.push(45, 20, 10);
+            args.push(45, 20, 10);
             break;
         }
-        masks[colour[0]] = [func, param];
+        masks[colour[0]] = [func, args];
       } else {
         masks[colour[0]] = null; 
       }

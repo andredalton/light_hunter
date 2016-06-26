@@ -1,3 +1,5 @@
+"use strict";
+
 // frame (image)
 // the image is 1400x2000 and its screen is 1188x774
 // the top left corner of the phone on the image is the point (358, 314)
@@ -15,6 +17,7 @@ var statusBarFraction = 0.045;
 var ctx;
 var browserWidth, browserHeight;
 var screenWidth, screenHeight;
+var frameHeight, frameWidth;
 var statusBarHeight;
 
 var image;
@@ -129,6 +132,7 @@ function lines(red, green, blue, alpha, angle, number, lineWidth) {
   var tangent = Math.tan(Math.PI / 180 * angle);
   var horStep = screenWidth  / number;
   var verStep = screenHeight / number;
+  var x0, x1, x2, y0, y1, y2;
   
   ctx.lineWidth = lineWidth;
   for (var i = 0; i <= number; i++) { // n + 1
