@@ -16,22 +16,23 @@ function received_data(data) {
   status = data;
   switch (data) {
     case 'r':
-      $('#status-txt').html('RED')
-      chess(255, 0, 0, 0.3, 15)
+      $('#status-txt').html('RED');
+      chess(255, 0, 0, 0.3, 15);
       break;
     case 'y':
-      $('#status-txt').html('YELLOW')
-      lines(255, 255, 50, 0.3, -45, 15, 10)
+      $('#status-txt').html('YELLOW');
+      lines(255, 255, 50, 0.3, -45, 15, 10);
       break;
     case 'g':
-      $('#status-txt').html('GREEN')
-      lines(0, 255, 0, 0.3, 45, 15, 20)
+      $('#status-txt').html('GREEN');
+      lines(0, 255, 0, 0.3, 45, 15, 20);
       break;
     case 't':
-      $('#status-txt').html('TRANSPARENT')
+      $('#status-txt').html('TRANSPARENT');
+      drawStatusBar();
       break;
     default:
-      $('#status-txt').html('INVALID DATA')
+      $('#status-txt').html('INVALID DATA');
       break;
   }
 }
