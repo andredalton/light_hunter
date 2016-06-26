@@ -1,9 +1,3 @@
-function hexToRGB(hex) {
-  var regex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
-  var result = regex.exec(hex);
-  return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)];
-}
-
 function demoClear() {
   clear();
 }

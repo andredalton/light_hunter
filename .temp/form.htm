@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Teste do formulário</title>
+    
+    <style type="text/css">
+
+    </style>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+    </script>
+    
+    <script>
+      
+      function initForm() {
+        
+        $('#chk-audio').change(function() {
+          $("#fs-audio").toggle(this.checked);
+        });
+        
+        $('#chk-mask').change(function() {
+          $("#fs-mask").toggle(this.checked);
+        });
+        
+      }
+      
+      $(document).ready(initForm);
+    </script>
+  </head>
+  <body>
+    
+    <div id="light-hunter-interface" style="border: 1px solid black; width: 300px">
+      <div style="text-align:center; font-weight: bold; font-size: 120%">
+        Light Hunter
+      </div>
+      
+      <form>
+        <div>
+          <input type="checkbox" id="chk-audio" checked /> 
+          <label for="chk-audio">Audio</label>
+        </div>
+        <div>
+          <input type="checkbox" id="chk-mask" checked /> 
+          <label for="chk-audio">Mask</label>
+        </div>
+        <fieldset id="fs-audio" style="width: 70%;; margin-left: auto; margin-right: auto">
+          <legend>Audio</legend>
+          
+          <div>
+            <label for="volume">Volume</label>
+            <input type="range" id="volume" min="0" max="1" step="0.05" value="0.7" />
+          </div>
+          
+          <div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <input type="checkbox" id="chk-aud-red" checked />
+                  </td>
+                  <td>
+                    <label for="chk-aud-red">Red</label>
+                  </td>
+                  <td>
+                    <button id="change-red">Change...</button>
+                  </td>
+                  <td>
+                    <button id="play-red">Play</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" id="chk-aud-yellow" checked />
+                  </td>
+                  <td>
+                    <label for="chk-aud-yellow">Yellow</label>
+                  </td>
+                  <td>
+                    <button id="change-yellow">Change...</button>
+                  </td>
+                  <td>
+                    <button id="play-yellow">Play</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" id="chk-aud-green" checked />
+                  </td>
+                  <td>
+                    <label for="chk-aud-green">Green</label>
+                  </td>
+                  <td>
+                    <button id="change-green">Change...</button>
+                  </td>
+                  <td>
+                    <button id="play-green">Play</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            
+            
+      
+          </div>
+        
+        </fieldset>
+      
+        <fieldset id="fs-mask" style="width: 70%;; margin-left: auto; margin-right: auto">
+          <legend>Mask</legend>
+          
+          <div>
+            <label for="opacity">Opacity</label>
+            <input type="range" id="opacity" min="0" max="1" step="0.05" value="0.3" />
+          </div>
+          
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <input type="checkbox" id="chk-mask-red" checked />
+                </td>
+                <td>
+                  <label for="chk-mask-red">Red</label>
+                </td>
+                <td>
+                  <select id="mask-red">
+                    <option value="chess" selected>
+                      Chess
+                    </option>
+                    <option value="vertical">
+                      Vertical
+                    </option>
+                    <option value="oblique">
+                      Oblique
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <input type="color" id="colour-red" value="#FF0000" />
+                </td>
+              </tr> 
+              <tr>
+                <td>
+                  <input type="checkbox" id="chk-mask-yellow" checked />
+                </td>
+                <td>
+                  <label for="chk-mask-yellow">Yellow</label>
+                </td>
+                <td>
+                  <select id="mask-yellow">
+                    <option value="chess">
+                      Chess
+                    </option>
+                    <option value="vertical" selected>
+                      Vertical
+                    </option>
+                    <option value="oblique">
+                      Oblique
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <input type="color" id="colour-yellow" value="#FFFF00" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input type="checkbox" id="chk-mask-green" checked />
+                </td>
+                <td>
+                  <label for="chk-mask-green">Green</label>
+                </td>
+                <td>
+                  <select id="mask-green">
+                    <option value="chess">
+                      Chess
+                    </option>
+                    <option value="vertical">
+                      Vertical
+                    </option>
+                    <option value="oblique" selected>
+                      Oblique
+                    </option>
+                  </select>
+                </td>
+                <td>
+                  <input type="color" id="colour-green" value="#00BB00" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </fieldset>
+      </form>
+    </div>
+    
+  </body>
+</html>

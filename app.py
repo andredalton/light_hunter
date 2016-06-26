@@ -16,7 +16,6 @@ def shutdown_server():
 def index():
     return render_template('index.html')
 
-
 @app.route('/phone')
 def phone():
     return render_template('phone.html')

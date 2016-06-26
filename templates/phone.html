@@ -4,12 +4,16 @@
     <meta charset="utf-8">
     <title>Phone</title>
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+    </script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js">
+    </script>
+    
     <link rel="stylesheet" type="text/css" href="/static/css/phone.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/phone-demo.css" />
     <link rel="stylesheet" type="text/css" href="/static/css/mask.css" />
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
-    </script>
 
     <script src="/static/js/phone.js">
     </script>
@@ -43,6 +47,188 @@
       <img id="phone-frame" src="/static/img/LG_Nexus_4.png" width="1" height="1"
         alt="" ondragstart="return false;"/>
       <!-- Source: https://dribbble.com/shots/1078056-Lg-Nexus-4-Mockup -->
+      
+      <div id="light-hunter-interface" style="border: 1px solid black;">
+        <div style="text-align:center; font-weight: bold; font-size: 120%">
+          Light Hunter
+        </div>
+        
+        <div id="tab-container">
+          
+          <ul>
+            <li>
+              <a href="#tab-general">General</a>
+            </li>
+            <li>
+              <a href="#tab-audio">Audio</a>
+            </li>
+            <li>
+              <a href="#tab-mask">Mask</a>
+            </li>
+          </ul>
+          
+          <div id="tab-general">
+            <div style="height: 30%;">
+            </div>
+            
+            <div>
+              <input type="checkbox" id="chk-audio" checked /> 
+              <label for="chk-audio">Enable audio</label>
+            </div>
+            
+            <div>
+              <input type="checkbox" id="chk-mask" checked /> 
+              <label for="chk-mask">Enable mask</label>
+            </div>
+            
+            <div style="height: 30%;">
+            </div>
+          </div>
+        
+          <div id="tab-audio">
+            <div style="height: 10%;">
+            </div>
+            
+            <div style="text-align: center;">
+              <div>
+                <label for="volume">Volume</label>
+              </div>
+              <div>
+                <input type="range" id="volume" min="0" max="1" step="0.05"
+                  value="0.7"
+                />
+              </div>
+            </div>
+            
+            <div>
+              <div>
+                <input type="checkbox" id="chk-aud-red" checked />
+                <label for="chk-aud-red">Red</label>
+              </div>
+              <div>
+                <button id="change-red">Change...</button>
+              </div>
+              <div class="right-aligned">
+                <button id="play-red">Play</button>
+              </div>
+            </div>
+            <div>
+              <div>
+                <input type="checkbox" id="chk-aud-yellow" checked />
+                <label for="chk-aud-yellow">Yellow</label>
+              </div>
+              <div>
+                <button id="change-yellow">Change...</button>
+              </div>
+              <div class="right-aligned">
+                <button id="play-yellow">Play</button>
+              </div>
+            </div>
+            <div>
+              <div>
+                <input type="checkbox" id="chk-aud-green" checked />
+                <label for="chk-aud-green">Green</label>
+              </div>
+              <div>
+                <button id="change-green">Change...</button>
+              </div>
+              <div class="right-aligned">
+                <button id="play-green">Play</button>
+              </div>
+            </div>
+          </div>
+        
+          <div id="tab-mask">
+            <div style="height: 10%;">
+            </div>
+            
+            <div style="text-align: center;">
+              <div>
+                <label for="opacity">Opacity</label>
+              </div>
+              <div>
+                <input type="range" id="opacity" min="0" max="1" step="0.05"
+                  value="0.3"
+                />
+              </div>
+            </div>
+            
+            <div>
+              <div>
+                <input type="checkbox" id="chk-mask-red" checked />
+                <label for="chk-mask-red">Red</label>
+              </div>
+              <div>
+                <select id="mask-red">
+                  <option value="chess" selected>
+                    Chess
+                  </option>
+                  <option value="vertical">
+                    Vertical
+                  </option>
+                  <option value="oblique">
+                    Oblique
+                  </option>
+                </select>
+              </div>
+              <div class="right-aligned">
+                <input type="color" id="colour-red" value="#FF0000" />
+              </div>
+            </div> 
+            <div>
+              <div>
+                <input type="checkbox" id="chk-mask-yellow" checked />
+                <label for="chk-mask-yellow">Yellow</label>
+              </div>
+              <div>
+                <select id="mask-yellow">
+                  <option value="chess">
+                    Chess
+                  </option>
+                  <option value="vertical" selected>
+                    Vertical
+                  </option>
+                  <option value="oblique">
+                    Oblique
+                  </option>
+                </select>
+              </div>
+              <div class="right-aligned">
+                <input type="color" id="colour-yellow" value="#FFFF00" />
+              </div>
+            </div>
+            <div>
+              <div>
+                <input type="checkbox" id="chk-mask-green" checked />
+                <label for="chk-mask-green">Green</label>
+              </div>
+              <div>
+                <select id="mask-green">
+                  <option value="chess">
+                    Chess
+                  </option>
+                  <option value="vertical">
+                    Vertical
+                  </option>
+                  <option value="oblique" selected>
+                    Oblique
+                  </option>
+                </select>
+              </div>
+              <div class="right-aligned">
+                <input type="color" id="colour-green" value="#00BB00" />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="button-container">
+          <button id="btn-start" onclick="start_lh();">
+            Start
+          </button>
+        </div>
+      </div>
+      
     </div>
     
     
@@ -117,3 +303,10 @@
   </body>
   
 </html>
+
+<!-- 
+
+To find out coordinates of a point
+$('#screen')[0].addEventListener('mousedown', function(e) {console.log([e.offsetX/screenWidth, e.offsetY/screenHeight])});
+
+-->

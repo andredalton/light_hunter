@@ -7,8 +7,27 @@ var statusBarHeight;
 var notifTimer = null;
 
 function initUI() {
+  
   notifOffset = 1.5 * statusBarFraction * screenHeight;
-  statusBarHeight = statusBarFraction * screenHeight;
+  
+  $('#chk-audio').change(function() {
+    $('#tab-container').tabs(this.checked ? 'enable' : 'disable', '#tab-audio');
+    showOrHideStartButton();
+  });
+  
+  $('#chk-mask').change(function() {
+    $('#tab-container').tabs(this.checked ? 'enable' : 'disable', '#tab-mask');
+    showOrHideStartButton();
+  });
+  
+}
+
+function showOrHideStartButton() {
+  if (!$('#chk-audio').is(':checked') && !$('#chk-mask').is(':checked')) {
+    $('#btn-start').attr('disabled', 'disabled');
+  } else {
+    $('#btn-start').attr('disabled', null);
+  }
 }
 
 function addLeadingZero(number) {
@@ -45,6 +64,15 @@ function drawStatusBar() {
   drawNotificationBar();
 }
 
+
+function updateHomeScreenClock() {  
+  var top    = 0.22 * screenHeight;
+  var left   = 0.00 * screenWidth;
+  var width  = 1.00 * screenWidth;
+  var height = 0.13 * screenHeight;
+  drawClock(left, top, width, height, 'rgba(0,0,0,0)', '#FFFFFF', true);
+}
+
 function updateStatusBarClock() {
   var top = 0;
   var left = 0.8 * screenWidth;
@@ -65,11 +93,11 @@ function drawNotificationBar() {
 }
 
 function backButtonClicked() {
-  console.log('BACK!');
+  hideLightHunterInterface();
 }
 
 function homeButtonClicked() {
-  console.log('HOME!');
+  hideLightHunterInterface();
 }
 
 function setVisibleNotifHeight(height) {
@@ -82,6 +110,8 @@ function setVisibleNotifHeight(height) {
 }
 
 function screenMouseUp(evt) {
+  if (!isDraggingNotif)
+    return;
   mouseIsDown = false;
   isDraggingNotif = false;
   if (visibleNotifHeight < oldVisibleNotifHeight) {
@@ -96,9 +126,17 @@ function screenMouseDown(evt) {
   if (notifTimer) {
     clearInterval(notifTimer);
   }
-  if (evt.offsetY / screenHeight <= statusBarFraction ||
+  if (evt.offsetY <= statusBarHeight ||
       evt.offsetY - notifOffset <= visibleNotifHeight) {
     isDraggingNotif = true;
+  }
+  if (!isDraggingNotif) {
+    var lh = {'left': 0.01 * screenWidth, 'top': 0.61 * screenHeight,
+          'width': 0.25 * screenWidth, 'height': 0.13 * screenHeight}
+    if (evt.offsetX >= lh.left && evt.offsetX <= lh.left + lh.width &&
+        evt.offsetY >= lh.top && evt.offsetY <= lh.top + lh.height) {
+      showLightHunterInterface();
+    }
   }
 }
 

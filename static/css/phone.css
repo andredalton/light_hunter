@@ -2,10 +2,6 @@
     z-index: 2;
 }
 
-#clock {
-    z-index: 3;
-}
-
 #screen {
     border: 0px;
 }
@@ -20,7 +16,7 @@
     user-select: none;
 }
 
-canvas {
+canvas, #light-hunter-interface {
     position: absolute;
 }
 
@@ -31,3 +27,49 @@ canvas {
 #container {
     position: relative;
 }
+
+#light-hunter-interface {
+    background-color: #FFFFFF;
+    z-index: -1;
+}
+
+#tab-audio, #tab-mask, #tab-general {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+#tab-audio div, #tab-mask div, #tab-general div {
+    display: table-row;
+}
+
+#tab-audio div div, #tab-mask div div {
+    display: table-cell;
+    height: 10%;
+}
+
+
+.right-aligned {
+    text-align: right;
+}
+
+.ui-widget {
+    font-size: 1em;
+}
+
+.ui-widget-content {
+    border: 0px solid;
+}
+
+#button-container {
+    text-align: center;
+}
+
+#button-container button {
+    font-size: 1.5em;
+}
+
+#tab-general {
+    text-align: center;
+}
+

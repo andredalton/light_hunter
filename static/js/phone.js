@@ -15,6 +15,7 @@ var statusBarFraction = 0.045;
 var ctx;
 var browserWidth, browserHeight;
 var screenWidth, screenHeight;
+var statusBarHeight;
 
 var image;
 
@@ -37,6 +38,7 @@ function init() {
   screenWidth = Math.ceil(screenWidth);
   screenHeight = screenOnImage.height / frameImageHeight * frameHeight;
   screenHeight = Math.ceil(screenHeight);
+  statusBarHeight = statusBarFraction * screenHeight;
   
   $('#screen')[0].setAttribute('width', screenWidth);
   $('#screen')[0].setAttribute('height', screenHeight);
@@ -44,6 +46,11 @@ function init() {
   left = Math.floor(screenOnImage.left / frameImageWidth * frameWidth);
   top = Math.floor(screenOnImage.top / frameImageHeight * frameHeight);
   $('#screen').css('left', left).css('top', top);
+  
+  // Light Hunter interface: on the screen
+  var lhi = $('#light-hunter-interface');
+  lhi.css('left', left).css('top', top + statusBarHeight);
+  lhi.css('width', screenWidth).height(screenHeight - statusBarHeight);
   
   // back button (canvas)
   var w = Math.ceil(backButtonOnImage.width  / frameImageWidth  * frameWidth);
@@ -65,7 +72,7 @@ function init() {
 
   // load screen image
   image = new Image();
-  image.src = '/static/img/screenshot-1.jpg';
+  image.src = '/static/img/celular_com_app.png';
   image.onload = function() { clear(); }
   
   // add event listeners
@@ -76,7 +83,13 @@ function init() {
   $('#screen')[0].addEventListener('mousemove', screenMouseMove);
   $('#screen')[0].addEventListener('mouseout', screenMouseUp);
   
-
+  // create tabs
+  $('#tab-container').tabs();
+  $('#tab-audio, #tab-mask, #tab-general').css('height', 0.6 * screenHeight + 'px');
+  $('#tab-audio hr, #tab-mask hr').css('display', 'table-row');
+  $('#tab-audio, #tab-mask, #tab-general').css('padding', 0);
+  $('.ui-tabs-anchor').css('padding', '0.3em')
+  
 }
 
 function clear() {
@@ -87,14 +100,6 @@ function clear() {
 }
 
 
-
-function updateHomeScreenClock() {  
-  var top = 0.07 * screenHeight;
-  var left = 0.1 * screenWidth;
-  var width = 0.8 * screenWidth;
-  var height = 0.13 * screenHeight;
-  drawClock(left, top, width, height, '#5C7794', '#FFFFFF', true);
-}
 
 function chess(red, green, blue, alpha, rows) {
   // red, green and blue in [0, 255]
@@ -146,7 +151,13 @@ function lines(red, green, blue, alpha, angle, number, lineWidth) {
     ctx.strokeStyle = 'rgba(' + [red, green, blue, alpha].join() + ')';
     ctx.stroke();
   }
-  drawStatusBar()
+  drawStatusBar();
+}
+
+function hexToRGB(hex) {
+  var regex = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i;
+  var result = regex.exec(hex);
+  return [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)];
 }
 
 $(document).ready(init);

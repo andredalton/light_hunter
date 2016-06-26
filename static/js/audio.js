@@ -5,25 +5,35 @@ var sounds = {}
 var colors = {}
 
 var audio_files = {'r' : 'sound3', 'y': 'sound2', 'g': 'sound1', 't': null}
+var default_sounds = {}
 
 function create_audio_files() {
   for (key in audio_files) {
     if (audio_files[key] !== null) {
       var a = new Audio('/static/sound/' + audio_files[key] + '.mp3')
-      a.volume = 0;
-      a.loop = true;
-      a.play();
-      sounds[audio_files[key]] = a;
+      default_sounds[key] = a;
     }
   }
 }
 
 function mute(key) {
-  sounds[audio_files[key]].volume = 0;
+  var s = sounds[key];
+  if (s)
+    s.pause();
 }
 
 function unmute(key) {
-  sounds[audio_files[key]].volume = 1;
+  var s = sounds[key];
+  if (s) {
+    s.volume = volume;
+    s.loop = true;
+    s.play();
+  }
+}
+
+function muteAll() {
+  for (var s of sounds)
+    s.pause();
 }
 
 $(document).ready(create_audio_files);
