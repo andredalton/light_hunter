@@ -71,6 +71,11 @@ function init() {
   // add event listeners
   $('#back-button')[0].addEventListener('mousedown', backButtonClicked);
   $('#home-button')[0].addEventListener('mousedown', homeButtonClicked);
+  $('#screen')[0].addEventListener('mousedown', screenMouseDown);
+  $('#screen')[0].addEventListener('mouseup', screenMouseUp);
+  $('#screen')[0].addEventListener('mousemove', screenMouseMove);
+  $('#screen')[0].addEventListener('mouseout', screenMouseUp);
+  
 
 }
 
@@ -81,20 +86,7 @@ function clear() {
   updateHomeScreenClock();
 }
 
-function drawStatusBar() {
-  ctx.drawImage(image,
-                0, 0, image.width, statusBarFraction * image.height,
-                0, 0, screenWidth, statusBarFraction * screenHeight);
-  updateStatusBarClock();
-}
 
-function updateStatusBarClock() {
-  var top = 0;
-  var left = 0.8 * screenWidth;
-  var width = screenWidth - left;
-  var height = statusBarFraction * screenHeight;
-  drawClock(left, top, width, height, '#02868B', '#FFFFFF', false);
-}
 
 function updateHomeScreenClock() {  
   var top = 0.07 * screenHeight;
