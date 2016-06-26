@@ -13,6 +13,11 @@
 #phone-frame {
     z-index: 1;
     position: absolute;
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 canvas {
@@ -26,4 +31,3 @@ canvas {
 #container {
     position: relative;
 }
-
