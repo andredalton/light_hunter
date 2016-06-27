@@ -20,7 +20,7 @@ var screenWidth, screenHeight;
 var frameHeight, frameWidth;
 var statusBarHeight;
 
-var image;
+var image, wazeImage;
 
 
 function init() {
@@ -78,6 +78,10 @@ function init() {
   image.src = '/static/img/celular_com_app.png';
   image.onload = function() { clear(); }
   
+  // load Waze image
+  wazeImage = new Image();
+  wazeImage.src = '/static/img/waze.png';
+  
   // add event listeners
   $('#back-button')[0].addEventListener('mousedown', backButtonClicked);
   $('#home-button')[0].addEventListener('mousedown', homeButtonClicked);
@@ -96,10 +100,14 @@ function init() {
 }
 
 function clear() {
-  // background
-  ctx.drawImage(image, 0, 0, screenWidth, screenHeight);
-  // clock
-  updateHomeScreenClock();
+  if (!displayingWaze) {
+    // background
+    ctx.drawImage(image, 0, 0, screenWidth, screenHeight);
+    // clock
+    updateHomeScreenClock();
+  } else {
+    ctx.drawImage(wazeImage, 0, 0, screenWidth, screenHeight);
+  }
 }
 
 

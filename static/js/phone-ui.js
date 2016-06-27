@@ -7,6 +7,8 @@ var oldVisibleNotifHeight = 0;
 var notifOffset;
 var statusBarHeight;
 var notifTimer = null;
+var displayingWaze = false;
+
 
 function initUI() {
   
@@ -105,10 +107,12 @@ function drawNotificationBar() {
 
 function backButtonClicked() {
   hideLightHunterInterface();
+  closeWaze();
 }
 
 function homeButtonClicked() {
   hideLightHunterInterface();
+  closeWaze();
 }
 
 function setVisibleNotifHeight(height) {
@@ -141,15 +145,28 @@ function screenMouseDown(evt) {
       evt.offsetY - notifOffset <= visibleNotifHeight) {
     isDraggingNotif = true;
   }
-  if (!isDraggingNotif) {
+  
+  if (!isDraggingNotif && !displayingWaze) {
+    
+    // Light Hunter icon
     var lh = {'left': 0.01 * screenWidth, 'top': 0.61 * screenHeight,
           'width': 0.25 * screenWidth, 'height': 0.13 * screenHeight}
     if (evt.offsetX >= lh.left && evt.offsetX <= lh.left + lh.width &&
         evt.offsetY >= lh.top && evt.offsetY <= lh.top + lh.height) {
       showLightHunterInterface();
     }
+    
+    // Waze icon
+    var lh = {'left': 0.27 * screenWidth, 'top': 0.61 * screenHeight,
+          'width': 0.25 * screenWidth, 'height': 0.13 * screenHeight}
+    if (evt.offsetX >= lh.left && evt.offsetX <= lh.left + lh.width &&
+        evt.offsetY >= lh.top && evt.offsetY <= lh.top + lh.height) {
+      openWaze();
+    }
   }
 }
+
+
 
 function screenMouseMove(evt) {
   if (isDraggingNotif) {

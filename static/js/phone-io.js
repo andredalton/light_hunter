@@ -8,6 +8,7 @@ var soundEnabled = false;
 var maskEnabled = false;
 var volume = 1;
 
+
 var masks = {
   't': null,
   'r': null,
@@ -136,6 +137,16 @@ function showLightHunterInterface() {
 
 function hideLightHunterInterface() {
   $('#light-hunter-interface').css('z-index', -1);
+}
+
+function openWaze() {
+  displayingWaze = true;
+}
+
+function closeWaze() {
+  if (displayingWaze) {
+    displayingWaze = false;
+  }
 }
 
 $(document).ready(initIO);
