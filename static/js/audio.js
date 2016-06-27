@@ -46,4 +46,18 @@ function playOnce(key) {
   }
 }
 
+function setNewAudioFile(colour) {
+  var key = colour[0];
+  var file = $('#aud-file-' + colour)[0].files[0];
+  if (!file) {
+    sounds[key] = null;
+    return;
+  }
+  var reader = new FileReader();
+  reader.addEventListener('load', function () {
+    sounds[key] = new Audio(reader.result);
+  }, false);
+  reader.readAsDataURL(file);
+}
+
 $(document).ready(create_audio_files);

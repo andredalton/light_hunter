@@ -39,11 +39,9 @@ function received_data(data) {
     }
   }
 
-  if (data == 't')
-    drawStatusBar();
-  
   $('#status-txt').html(data);
   status = data;
+  drawStatusBar();
 }
 
 function failed() {
@@ -103,10 +101,7 @@ function start_lh(interval) {
       } else {
         masks[colour[0]] = null; 
       }
-      
-      if ($('#chk-audio-' + colour).is(':checked')) {
-        
-      }
+
     }
     
   }
