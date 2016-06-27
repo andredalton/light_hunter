@@ -132,6 +132,7 @@ function stop_lh() {
 
 function showLightHunterInterface() {
   stop_lh();
+  $('#tab-container a')[0].click(); // show first tab
   $('#light-hunter-interface').css('z-index', 3);
 }
 
