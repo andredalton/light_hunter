@@ -27,7 +27,8 @@ Como rodar
 4. Baixe os diretórios com imagens de semáforos dentro da pasta LightHunter.
 As imagens contidas nesse diretório serão usadas como parte do protótipo.
 
-Agora é só abrir a página do seu navegador http://127.0.0.1:5000/
+Agora é só abrir a página do seu navegador em: http://127.0.0.1:5000/ e
+ http://127.0.0.1:5000/phone para ver a tela do aparelho celular.
 
 Recomenda-se usar o Chromium do que o Firefox, pois os frames da imagem ficam
 melhores. Provavelmente, porque o primeiro deve usar mais RAM do computador.
