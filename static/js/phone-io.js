@@ -103,10 +103,7 @@ function start_lh(interval) {
       } else {
         masks[colour[0]] = null; 
       }
-      
-      if ($('#chk-audio-' + colour).is(':checked')) {
-        
-      }
+
     }
     
   }

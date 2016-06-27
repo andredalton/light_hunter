@@ -26,6 +26,10 @@ function initUI() {
   $('#play-yellow').click(function() { playOnce('yellow'); });
   $('#play-green' ).click(function() { playOnce('green' ); });
   
+  $('#aud-file-red'   ).change(function(){ setNewAudioFile('red'   ); });
+  $('#aud-file-yellow').change(function(){ setNewAudioFile('yellow'); });
+  $('#aud-file-green' ).change(function(){ setNewAudioFile('green' ); });
+  
   
 }
 
